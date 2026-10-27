@@ -1,10 +1,10 @@
-# AGENT.md - Maintainer Guide for `joe-speedboat.journal_forwarder`
+# AGENT.md - Maintainer Guide for `tuxbull.journal_forwarder`
 
 This file is for AI agents and human maintainers working on this repository. Keep it accurate when the role behavior changes.
 
 ## Role purpose
 
-`joe-speedboat.journal_forwarder` is a Linux-only Ansible role that installs and configures Fluent Bit to forward Linux logs to Graylog over GELF.
+`tuxbull.journal_forwarder` is a Linux-only Ansible role that installs and configures Fluent Bit to forward Linux logs to Graylog over GELF.
 
 The role owns the Linux/Fluent Bit side only. Windows Event Log forwarding is handled by the separate `joe-speedboat.winlogbeat_forwarder` role.
 
@@ -212,7 +212,7 @@ Uninstall is invoked with:
 
 ```yaml
 - ansible.builtin.include_role:
-    name: joe-speedboat.journal_forwarder
+    name: tuxbull.journal_forwarder
     tasks_from: uninstall.yml
 ```
 

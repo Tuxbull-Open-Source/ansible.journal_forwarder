@@ -1,6 +1,13 @@
 # Changelog
+## v1.1.2 - 2026-10-27
 
-All notable changes to `joe-speedboat.journal_forwarder` are documented in this file.
+### Changed
+
+- Migrate the published role identity to `tuxbull.journal_forwarder`.
+- Align task dispatch with the current Enterprise Ansible Role Template.
+- Update source links and maintainer guidance for Tuxbull-Open-Source.
+
+All notable changes to `tuxbull.journal_forwarder` are documented in this file.
 
 ## v1.1.1 - 2026-08-31
 

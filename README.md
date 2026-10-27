@@ -1,8 +1,8 @@
-# Ansible Role: `joe-speedboat.journal_forwarder`
+# Ansible Role: `tuxbull.journal_forwarder`
 
 Linux-only Ansible role for forwarding systemd journal, audit, and selected security/application logs to **Graylog** with **Fluent Bit** over GELF.
 
-**Latest release: `v1.1.1`**
+**Next release: `v1.1.2`**
 
 > Windows Event Log forwarding is handled by Ansible role [`joe-speedboat.winlogbeat_forwarder`](https://github.com/joe-speedboat/ansible.winlogbeat_forwarder) with Winlogbeat OSS.   
 This role owns the Linux/Fluent Bit side only.
@@ -35,14 +35,14 @@ Create a GELF TCP input before deploying this role. Default port:
 12201/tcp
 ```
 
-## Install role (`v1.1.1`)
+## Install role (`v1.1.2`)
 ### From Ansible Galaxy
 ```bash
-ansible-galaxy install joe-speedboat.journal_forwarder
+ansible-galaxy role install tuxbull.journal_forwarder,v1.1.2
 ```
 ### From Github (pinned release)
 ```bash
-git clone --branch v1.1.1 https://github.com/joe-speedboat/ansible.journal_forwarder.git /etc/ansible/roles/joe-speedboat.journal_forwarder
+git clone --branch v1.1.2 https://github.com/Tuxbull-Open-Source/ansible.journal_forwarder.git /etc/ansible/roles/tuxbull.journal_forwarder
 ```
 
 ## Quick Start
@@ -53,7 +53,7 @@ git clone --branch v1.1.1 https://github.com/joe-speedboat/ansible.journal_forwa
   gather_facts: true
   become: true
   roles:
-    - role: joe-speedboat.journal_forwarder
+    - role: tuxbull.journal_forwarder
       vars:
         graylog_gelf_host: graylog.example.com
         graylog_gelf_port: 12201
@@ -68,7 +68,7 @@ git clone --branch v1.1.1 https://github.com/joe-speedboat/ansible.journal_forwa
   become: true
   tasks:
     - ansible.builtin.include_role:
-        name: joe-speedboat.journal_forwarder
+        name: tuxbull.journal_forwarder
         tasks_from: uninstall.yml
 ```
 
