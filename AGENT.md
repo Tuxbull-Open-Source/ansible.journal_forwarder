@@ -99,11 +99,17 @@ RHEL-family 8 targets need Python 3.9 for fact gathering and controller modules.
 ```yaml
 journal_forwarder_install: true
 journal_forwarder_remove_repo: true
+journal_forwarder_purge_state_on_uninstall: false
 ```
 
 `journal_forwarder_install` gates normal install/configure tasks.
 
 `journal_forwarder_remove_repo` controls repository cleanup during uninstall.
+By default uninstall preserves `/var/lib/fluent-bit` cursor and buffer state.
+Set `journal_forwarder_purge_state_on_uninstall: true` only for an intentional
+purge: queued records can be lost and tailed files can be replayed. Custom state
+paths are not purged by this option. State retention does not guarantee
+exactly-once delivery, and retained state can contain sensitive data.
 
 ### Graylog GELF
 
@@ -228,10 +234,11 @@ Default uninstall behavior:
 
 1. Stops and disables Fluent Bit.
 2. Removes the Fluent Bit package.
-3. Removes Fluent Bit configuration and state paths:
+3. Removes Fluent Bit configuration and program paths:
    - `/etc/fluent-bit`
-   - `/var/lib/fluent-bit`
    - `/opt/fluent-bit`
+   The default state directory `/var/lib/fluent-bit` is retained unless
+   `journal_forwarder_purge_state_on_uninstall: true` is explicitly set.
 4. Removes audit packages when both are true:
    - `journal_forwarder_audit_enabled`
    - `journal_forwarder_audit_remove`

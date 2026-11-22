@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Preserve the default Fluent Bit state directory across uninstall by default.
+  A deliberate purge is available via `journal_forwarder_purge_state_on_uninstall`;
+  purging can discard buffered records or replay existing files after reinstall.
+
 ## v1.1.3 - 2026-11-22
 
 ### Fixed
