@@ -2,6 +2,9 @@
 # Toggle installation
 journal_forwarder_install: true
 journal_forwarder_remove_repo: true  # remove Fluent Bit repo on uninstall
+# Preserve cursor databases and buffered records on uninstall to avoid replay.
+# Explicitly enable only when discarding state and possible replay are acceptable.
+journal_forwarder_purge_state_on_uninstall: false
 
 # Graylog GELF input settings
 graylog_gelf_host: graylog.example.com

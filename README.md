@@ -72,6 +72,17 @@ git clone --branch v1.1.2 https://github.com/Tuxbull-Open-Source/ansible.journal
         tasks_from: uninstall.yml
 ```
 
+Uninstall preserves `/var/lib/fluent-bit` by default, including cursor databases
+and any buffered records. This helps avoid replaying tailed files when the role
+is reinstalled, but does not guarantee exactly-once delivery or recovery after
+rotation, corruption, or a crash. The retained state may contain sensitive data
+and consume disk space; protect it and include it in retention decisions.
+
+Set `journal_forwarder_purge_state_on_uninstall: true` only when deliberately
+discarding the default state directory. Purging may lose buffered records and
+cause historical records to be replayed after reinstall. This option applies
+only to `/var/lib/fluent-bit`; custom state paths are not removed by uninstall.
+
 ## Optional k3s Kubernetes Event exporter
 
 Set `journal_forwarder_k3s_event_exporter_enabled: true` on a Rocky Linux 9
@@ -115,6 +126,7 @@ Graylog destination before enabling this feature on another node.
 | Variable | Default | Description |
 |---|---|---|
 | `journal_forwarder_install` | `true` | Enable installation/configuration |
+| `journal_forwarder_purge_state_on_uninstall` | `false` | Explicitly delete default state on uninstall; may lose queued records or replay files |
 | `graylog_fluent_bit_workers` | `2` | Fluent Bit output worker count |
 | `journal_forwarder_tag` | `journald` | Tag for systemd journal input |
 | `journal_forwarder_read_from_tail` | `true` | Start journald reading from tail |

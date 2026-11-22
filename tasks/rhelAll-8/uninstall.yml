@@ -9,15 +9,20 @@
   changed_when: "'Nothing to do.' not in fluent_bit_remove.stdout"
   ignore_errors: true
 
-- name: Remove Fluent Bit configuration and data
+- name: Remove Fluent Bit configuration and program files
   ansible.builtin.file:
     path: "{{ item }}"
     state: absent
   loop:
     - /etc/fluent-bit
-    - /var/lib/fluent-bit
     - /opt/fluent-bit
   ignore_errors: true
+
+- name: Remove default Fluent Bit state only when explicitly requested
+  ansible.builtin.file:
+    path: /var/lib/fluent-bit
+    state: absent
+  when: journal_forwarder_purge_state_on_uninstall | bool
 
 - name: Remove audit packages (RHEL 8)
   ansible.builtin.command: dnf -y remove {{ pkg_rhel_journal_forwarder_audit | join(' ') }}
