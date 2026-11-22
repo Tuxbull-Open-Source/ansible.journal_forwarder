@@ -1,4 +1,14 @@
 # Changelog
+
+## v1.1.3 - 2026-11-22
+
+### Fixed
+
+- Allow the optional k3s Event exporter task to resolve on platforms without a
+  specific implementation; report that the feature is unavailable when disabled
+  and fail clearly if it is requested on such a platform.
+- Preserve RHEL-family task selection and the existing default-disabled behavior.
+
 ## v1.1.2 - 2026-10-27
 
 ### Changed
@@ -110,3 +120,9 @@ Validation covered:
 - Uninstall cleanup of Fluent Bit config/state/repository/keyring artifacts.
 - Reinstall from an uninstalled state.
 - Final idempotent rerun.
+
+## v1.0.0 - 2026-06-09
+
+### Recovered release history
+
+- First release, as recorded in the published GitHub release notes.
