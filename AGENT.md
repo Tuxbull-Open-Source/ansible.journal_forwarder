@@ -158,6 +158,14 @@ journal_forwarder_security_log_paths:
   - /var/log/httpd/*.log
 ```
 
+## Optional k3s Event exporter support
+
+The k3s Event exporter integration uses the RHEL-family implementation. The
+shared fallback reports unsupported platforms when the feature is disabled and
+fails explicitly when it is enabled; it must never silently accept an enabled
+unsupported request. The RHEL-family implementation takes precedence over the
+fallback. Test both choices through the dispatcher before changing placement.
+
 ## Task layout
 
 This role follows the repository OS-dispatcher pattern.
@@ -280,6 +288,17 @@ Ubuntu uses an explicit keyring and apt source list. RHEL-family systems use a y
 Use `example.com` in public docs and examples. Do not commit non-public FQDNs, credentials, inventories, or real Graylog hostnames.
 
 ## Verification workflow for changes
+
+Run the isolated optional-dispatch regression suite with Ansible and PyYAML
+installed (use a disposable writable `TMPDIR`):
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_optional_dispatch.py' -v
+```
+
+The suite simulates OS facts, stubs unrelated numbered tasks and redirects one
+configuration path into a temporary directory. It tests the dispatcher in check
+mode; it does not install the role, verify a real OS or prove Graylog delivery.
 
 At minimum, verify syntax from a harness outside the role checkout:
 

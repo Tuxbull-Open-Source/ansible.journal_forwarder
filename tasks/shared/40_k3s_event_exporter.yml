@@ -1,0 +1,15 @@
+---
+- name: Report unavailable k3s Event exporter support
+  ansible.builtin.debug:
+    msg: >-
+      The optional k3s Event exporter is not supported by this role on this
+      platform; normal log forwarding remains available.
+  when: not (journal_forwarder_k3s_event_exporter_enabled | bool)
+
+- name: Reject unsupported k3s Event exporter configuration
+  ansible.builtin.fail:
+    msg: >-
+      The k3s Event exporter is not supported by this role on this platform.
+      Disable journal_forwarder_k3s_event_exporter_enabled or use a supported
+      RHEL-family implementation.
+  when: journal_forwarder_k3s_event_exporter_enabled | bool

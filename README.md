@@ -2,7 +2,7 @@
 
 Linux-only Ansible role for forwarding systemd journal, audit, and selected security/application logs to **Graylog** with **Fluent Bit** over GELF.
 
-**Next release: `v1.1.2`**
+The latest published release is `v1.1.2`.
 
 > Windows Event Log forwarding is handled by Ansible role [`joe-speedboat.winlogbeat_forwarder`](https://github.com/joe-speedboat/ansible.winlogbeat_forwarder) with Winlogbeat OSS.   
 This role owns the Linux/Fluent Bit side only.
@@ -93,6 +93,9 @@ flowchart LR
 ```
 
 The role adds the opt-in task file `tasks/rhelAll/40_k3s_event_exporter.yml`.
+The k3s Event exporter integration is available only through the RHEL-family
+implementation. On other platforms the role reports that the feature is not
+supported; enabling it fails explicitly. General journal forwarding is separate.
 The k3s manifest is installed into the k3s auto-deploy directory, so k3s
 performs reconciliation. Review the image tag, RBAC scope, hostPath, and
 Graylog destination before enabling this feature on another node.
